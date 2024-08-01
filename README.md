@@ -33,6 +33,8 @@ should work. Have in mind that connection to MCP2515 will probably be different.
 * Connect Arduino to 5v or USB port (can use multimedia usb port, phone charger etc.)
 * Cut video out wires from VES DVD and connect video out signal from multimedia.
 
+Check detailed [step-by-step guide](StepByStepGuide.md) for more instructions 
+
 # Supported Vehicles
 
 I own and work on **VW Routan 2011** with MyGig NTG4 RHR radio, but it should be identical to:
