@@ -28,6 +28,11 @@ Chrysler based versions as well (Dodge Caravan, Lancia Voyager etc).
 
 And you are done. You should now see output from multimedia system on VES display.
 
+End result:
+![Schematics](./images/endResult.png)
+![Schematics](./images/endResult2.png)
+![Schematics](./images/endResult3.png)
+
 This has worked for me, if you have a different original unit your mileage might vary - you might need to adjust the 
 CANBUS codes.
 
