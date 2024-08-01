@@ -23,7 +23,8 @@ Chrysler based versions as well (Dodge Caravan, Lancia Voyager etc).
   * Take out VES DVD player and cut off video out signal and ground wires
   * Connect video out signal from multimedia to VES video out signal cables
   * [schematics will be provided here]
-  * Connect VES DVD player back 
+  * Connect VES DVD player back
+  * Make sure there is any DVD in the DVD player, as it relies on VES DVD sending DVD info to displays.
 
 And you are done. You should now see output from multimedia system on VES display.
 
