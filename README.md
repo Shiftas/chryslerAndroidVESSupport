@@ -3,9 +3,9 @@
 When original multimedia is replaced, VES displays stops working - they only display white screen
 and does not display video from any source.
 
-VERY EARLY ACCESS, MORE INFORMATION will be added later on.
-
 The aim of this project is change that. 
+
+VERY EARLY ACCESS, MORE INFORMATION will be added later on.
 
 # Brief overview
 
