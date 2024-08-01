@@ -33,7 +33,7 @@ should work. Have in mind that connection to MCP2515 will probably be different.
 
 # Supported Vehicles
 
-I own and work on **VW Routan 2011**, but it should be identical to:
+I own and work on **VW Routan 2011** with MyGig NTG4 RHR radio, but it should be identical to:
 
 * Chrysler Town and Country
 * Dodge Caravan

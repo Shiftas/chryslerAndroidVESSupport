@@ -10,74 +10,28 @@
 #define CAN_SPEED (125E3)
 #define CAN_HEADER_SPEED (8E6)
 //------------------------------------------------------------------------------
-typedef struct {
-  long id;
-  byte rtr;
-  byte ide;
-  byte dlc;
-  byte dataArray[20];
-} packet_t;
-
-int packetsSent = 0;
 
 //------------------------------------------------------------------------------
 void MyGigSimulation(void) {
-  if (packetsSent == 20) {
-    SendInitPackets();
-    packetsSent = 0;
-  }
-  
-  byte videoData[] = {0x04,0x28,0x15,0x11,0x15,0x11,0x07};
-  sendPacketToCan(0x291, videoData, sizeof(videoData));
-  packetsSent = packetsSent + 1;
+  canSend(0x3B0,0x0B,0x10,0x01,0x01,0x01,0x13,0x87,0x01);
+  delay(5000);
 }
 
 void SendInitPackets(void) {
-  byte data[] = {0x00,0xD8,0x00,0x50,0x6F,0x70,0x00,0x00};
-  byte data1[] = {0x09,0x06,0x00,0x00,0x00,0x00,0x00,0x00};
-  byte data2[] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-  byte data3[] = {0x00,0x0A,0x0A,0x0A,0x0A,0x0A,0x00};
-  byte data4[] = {0xFF,0x00};
-  byte data5[] = {0x08,0x00,0x00,0x11,0x0F,0x00,0x00,0x00};
-  byte data6[] = {0x04,0x10,0x01,0x01,0x01,0x13,0x9D,0x00};
-  byte data7[] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-  byte data8[] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-  byte data9[] = {0x00,0x00,0x00,0x00};
-  byte data10[] = {0x00,0x00,0x00,0x00,0x0F,0xFF};
-  byte data11[] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
-  byte data12[] = {0x00,0x00,0x00,0xF0,0x01};
-  byte data13[] = {0x50,0x00,0x01,0x21,0x02,0x00,0x00,0x11};
-  byte data15[] = {0x00,0xBB,0x00,0x0F,0x07,0x00,0x00,0x00};
-  byte data16[] = {0xFD,0x1B,0x3F,0xFF,0xFF,0xFF,0xFF,0xFF};
-
-  sendPacketToCan(0x3A0, data, sizeof(data));
-  sendPacketToCan(0x294, data1, sizeof(data1));
-  sendPacketToCan(0x3FB, data2, sizeof(data2));
-  sendPacketToCan(0x3D9, data3, sizeof(data3));
-  sendPacketToCan(0x3C0, data4, sizeof(data4));
-  sendPacketToCan(0x3B3, data5, sizeof(data5));
-  sendPacketToCan(0x3B0, data6, sizeof(data6));
-  sendPacketToCan(0x3A4, data7, sizeof(data7));
-  sendPacketToCan(0x392, data8, sizeof(data8));
-  sendPacketToCan(0x2E9, data9, sizeof(data9));
-  sendPacketToCan(0x2D4, data10, sizeof(data10));
-  sendPacketToCan(0x306, data11, sizeof(data11));
-  sendPacketToCan(0x2D0, data12, sizeof(data12));
-  sendPacketToCan(0x293, data13, sizeof(data13));
-  sendPacketToCan(0x290, data15, sizeof(data15));
-  sendPacketToCan(0x416, data16, sizeof(data16));
-}
-
-void sendPacketToCan(int id, byte dataArray[], int dlc) {
-  for (int retries = 10; retries > 0; retries--) {
-    CAN.beginPacket(id, dlc, false);
-    CAN.write(dataArray, dlc);
-    if (CAN.endPacket()) {
-      break;
-    } else if (retries <= 1) {
-      return;
-    }
-  }
+  canSend(0x3FB,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00);
+  canSend(0x3C0,0xFF,0x00);
+  canSend(0x3B3,0x08,0x00,0x00,0x11,0x0F,0x00,0x00,0x00);
+  canSend(0x3B0,0x04,0x10,0x01,0x01,0x01,0x13,0x9D,0x00);
+  canSend(0x3A4,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00);
+  canSend(0x392,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00);
+  canSend(0x2E9,0x00,0x00,0x00,0x00);
+  canSend(0x2D4,0x00,0x00,0x00,0x00,0x0F,0xFF);
+  canSend(0x306,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF);
+  canSend(0x2D0,0x00,0x00,0x00,0xF0,0x01);
+  canSend(0x290,0x00,0xBB,0x00,0x0F,0x07,0x00,0x00,0x00);
+  canSend(0x416,0xFD,0x1B,0x3F,0xFF,0xFF,0xFF,0xFF,0xFF);
+  canSend(0x293,0x50,0x00,0x01,0x21,0x02,0x00,0x00,0x11);
+  canSend(0x294,0x09,0x06,0x00,0x00,0x00,0x00,0x00,0x00);
 }
 
 //------------------------------------------------------------------------------
@@ -92,5 +46,60 @@ void setup() {
 
 void loop() {
   MyGigSimulation();
-  delay(50);
+}
+
+void canSend(uint32_t ID, uint8_t b0)
+{
+  uint8_t b[1];
+  b[0] = b0;
+  canTX(1, ID, b);
+}
+void canSend(uint32_t ID, uint8_t b0, uint8_t b1)
+{
+  uint8_t b[2];
+  b[0] = b0; b[1] = b1;
+  canTX(2, ID, b);
+}
+void canSend(uint32_t ID, uint8_t b0, uint8_t b1, uint8_t b2)
+{
+  uint8_t b[3];
+  b[0] = b0; b[1] = b1; b[2] = b2;
+  canTX(3, ID, b);
+}
+void canSend(uint32_t ID, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3)
+{
+  uint8_t b[4];
+  b[0] = b0; b[1] = b1; b[2] = b2; b[3] = b3;
+  canTX(4, ID, b);
+}
+void canSend(uint32_t ID, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4)
+{
+  uint8_t b[5];
+  b[0] = b0; b[1] = b1; b[2] = b2; b[3] = b3; b[4] = b4;
+  canTX(5, ID, b);
+}
+void canSend(uint32_t ID, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5)
+{
+  uint8_t b[6];
+  b[0] = b0; b[1] = b1; b[2] = b2; b[3] = b3; b[4] = b4; b[5] = b5;
+  canTX(6, ID, b);
+}
+void canSend(uint32_t ID, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6)
+{
+  uint8_t b[7];
+  b[0] = b0; b[1] = b1; b[2] = b2; b[3] = b3; b[4] = b4; b[5] = b5; b[6] = b6;
+  canTX(7, ID, b);
+}
+void canSend(uint32_t ID, uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6, uint8_t b7)
+{
+  uint8_t b[8];
+  b[0] = b0; b[1] = b1; b[2] = b2; b[3] = b3; b[4] = b4; b[5] = b5; b[6] = b6; b[7] = b7;
+  canTX(8, ID, b);
+}
+
+void canTX(uint8_t packetSize, uint32_t ID, uint8_t b[])
+{
+  CAN.beginPacket(ID, packetSize);
+  CAN.write(b, packetSize);
+  CAN.endPacket();
 }
