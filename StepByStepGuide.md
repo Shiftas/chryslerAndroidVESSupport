@@ -20,8 +20,8 @@ Chrysler based versions as well (Dodge Caravan, Lancia Voyager etc).
   * ![Schematics](./images/MCP2515ToCAN.png)
 * Connect Arduino to phone charger, multimedia USB or any other 5v source
 * Connect Multimedia video OUT to VES DVD video OUT
-  * Take out VES DVD player and cut off video out signal and ground wires
-  * Connect video out signal from multimedia to VES video out signal cables
+  * Take out VES DVD player and cut off video signal (4) and video COM (3) wires
+  * Connect video out signal from multimedia to VES video out
   * ![Schematics](./images/VesToVideoOut.png)
   * Connect VES DVD player back
   * Make sure there is any DVD in the DVD player, as it relies on VES DVD sending DVD info to displays.
