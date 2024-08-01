@@ -16,7 +16,7 @@ Chrysler based versions as well (Dodge Caravan, Lancia Voyager etc).
     * Search for 'Sandeep Mistry' and select CAN library
   * Press Upload button in Arduino IDE
   * If all goes well and there are no errors, Arduino should be ready to go
-* Connect MCP2515 + and - to car's CAN bus lane
+* Connect MCP2515 + and - to car multimedia CAN bus lane
   * ![Schematics](./images/MCP2515ToCAN.png)
 * Connect Arduino to phone charger, multimedia USB or any other 5v source
 * Connect Multimedia video OUT to VES DVD video OUT
